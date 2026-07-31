@@ -1,53 +1,88 @@
 # Aether100 Pro Edge AI Workstation Hardware Platform
 
-Open-source Technical Data Package (TDP) for a compact, high-performance edge AI workstation designed for local inference of large language models.
-
-**Status:** Rev A – 2026-07-31  
+**Status:** Rev A Conceptual Baseline – 2026-07-31  
 **License:** CERN-OHL-S
 
-## Design Intent
+This repository contains a complete open-source Technical Data Package for a compact edge AI workstation concept. It was developed over approximately one week of structured iteration with large language models. It is **not** the work of a hardware genius, and it is **not** a finished or validated product.
 
-The Aether100 Pro is an engineering baseline for a desktop-class edge AI system focused on:
+It is an engineering baseline that anyone can review, critique, improve, or use as a starting point for further research and development.
 
-- Local execution of 70-billion-parameter class models
-- High memory capacity and bandwidth
-- Controlled acoustic and thermal performance
-- Full open-source hardware documentation
+## What This Project Is
 
-This repository contains the complete controlled document set, not a finished consumer product.
+A structured attempt to design a desktop-class system capable of running large (70B-class) language models fully locally, with emphasis on:
 
-## Key Design Targets (Rev A)
+- High theoretical compute throughput
+- Very large memory capacity and bandwidth
+- Low acoustic noise
+- Complete, controlled engineering documentation
 
-- Custom TSMC 3nm-class ACE-1 SoC architecture
-- 256 GB LPDDR5X memory subsystem
+## Novel / Interesting Features (On Paper)
+
+- Custom TSMC 3nm-class ACE-1 SoC architecture targeting high FP8 performance
+- 256 GB LPDDR5X-class memory subsystem
 - Dual PCIe Gen5 NVMe storage
-- Sealed copper vapor chamber thermal solution
-- Aggressive low-noise thermal design goals
-- Compact CNC aluminum enclosure
+- Sealed copper vapor chamber thermal design
+- Aggressive low-noise targets
+- Full document control, risk management, fabrication, quality, and assembly package
 
-## Document Structure
+## Honest Assessment: Is It Better in Theory?
 
-| Document | Location |
-|----------|----------|
-| Project Charter | [docs/00-project-control/](docs/00-project-control/) |
-| Product Requirements Specification | [docs/01-requirements/](docs/01-requirements/) |
-| Detailed Design Report | [docs/02-design/](docs/02-design/) |
-| Risk Management Plan | [docs/03-risk-management/](docs/03-risk-management/) |
-| Bill of Materials | [docs/04-bom/](docs/04-bom/) |
-| Manufacturing Drawing Standards | [docs/05-drawing-standards/](docs/05-drawing-standards/) |
-| Fabrication Specifications | [docs/06-fabrication/](docs/06-fabrication/) |
-| Quality Assurance & FAI Plan | [docs/07-quality/](docs/07-quality/) |
-| Assembly Work Instructions | [docs/08-assembly/](docs/08-assembly/) |
-| Document Control Procedure | [docs/00-project-control/](docs/00-project-control/) |
+In pure theory, the design tries to combine several strengths that existing products usually force you to trade off:
 
-## Future Content
+| Area                            | Aether100 Pro (Theory)              | Typical Current Products              | Theoretical Edge |
+|--------------------------------|-------------------------------------|---------------------------------------|------------------|
+| Local 70B-class performance    | High                                | Often limited or cloud-dependent      | Yes              |
+| Memory capacity & bandwidth    | Very high                           | Significantly lower                   | Yes              |
+| Noise under load               | Extremely low target (≤18 dBA)      | Usually much louder when powerful     | Yes (if achieved)|
+| Privacy (fully local)          | Yes                                 | Mixed                                 | Slight           |
+| Maturity & proven reliability  | None                                | High                                  | No               |
+| Realistic cost & manufacturability | Questionable                     | Known                                 | No               |
 
-- `mechanical/` — CAD models and drawings
-- `electrical/` — Schematics, PCB layout, Gerbers
-- `firmware/` — Bootloader and thermal management code
+**Summary:** On paper it aims at a compelling combination of high local AI performance + large memory + low noise. In reality, several of the most attractive claims are currently unrealistic.
 
-## License
+## Major Limitations & Realities
 
-This project is released under the CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S).
+The current design has significant gaps:
 
-See the [LICENSE](LICENSE) file for full terms.
+- The combination of 150 W continuous dissipation, junction temperature ≤ 80 °C, and ≤ 18 dBA with only a single low-speed 140 mm fan + vapor chamber is extremely aggressive and unlikely to work as specified without major redesign.
+- A true 2048-bit LPDDR5X memory bus is not practical with current packaging, routing, and cost constraints.
+- Fitting a new 3nm-class ASIC + 256 GB of high-speed memory into a ~$1,200 BOM target is highly questionable.
+- No physical prototypes, thermal measurements, or acoustic measurements exist yet.
+
+**Current Feasibility:**  
+This is a credible *architectural and documentation baseline* only. It is **not** production-ready, and several key performance claims would not survive real thermal, acoustic, or cost scrutiny.
+
+## Suitability for Law Office Use
+
+**Current stage:** Not suitable.
+
+Law offices need quiet, reliable, well-supported systems that protect client confidentiality. While the design goals (strong local AI + low noise + full data privacy) align well with legal work, the project is still only a concept. Existing commercial quiet workstations or private-cloud solutions are currently far more appropriate.
+
+**Future potential:** If the thermal, acoustic, cost, and reliability gaps are closed, a system like this could become interesting for privacy-sensitive professional environments.
+
+## Room for Growth
+
+Priority areas for future work include:
+
+1. Realistic thermal-acoustic design and measured validation
+2. Practical memory subsystem architecture
+3. Credible silicon cost and packaging strategy
+4. Power delivery validation
+5. Long-term reliability testing
+6. Design-for-manufacturing and cost reduction
+7. EMC and regulatory work
+
+## Repository Structure
+
+- `docs/` — Full controlled Technical Data Package
+- `mechanical/` — Placeholder for CAD
+- `electrical/` — Placeholder for schematics & PCB
+- `firmware/` — Placeholder for low-level code
+
+A detailed engineering critique and 12-point R&D roadmap is available at:
+
+[docs/02-design/REPORT-CRIT-AETH100-REV-A.md](docs/02-design/REPORT-CRIT-AETH100-REV-A.md)
+
+## Final Note
+
+This project is shared in the spirit of open engineering. The documentation is thorough; the physical claims still need a great deal of work. Critique, forks, and improvements are welcome.
