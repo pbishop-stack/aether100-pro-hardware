@@ -1,2 +1,0 @@
-docs/00-project-control/placeholder.txt
-placeholder
